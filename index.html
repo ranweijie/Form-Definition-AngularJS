@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<!--字符集-->
+		<meta charset="utf-8">
+		<!--IE兼容性-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<!--响应式布局(width=设备width,初始缩放1，最大缩放1，用户缩放禁用)-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!--上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！-->
+		<title>Form Definition</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/public.css">
+
+		<script src="js/lib/jquery-2.1.4.min.js"></script>
+		<script src="js/lib/angular1.4.8.min.js"></script>
+		<!--<script src="js/lib/bootstrap.min.js"></script>-->
+	</head>
+	<body ng-app="myForm" ng-controller="myController">
+	<div id="main_box">
+		<button type="button" ng-bind="statusBtnContent" ng-click="changeStatus()" ng-class="{true:'btn btn-success',false:'btn btn-info'}[status=='edit']"></button>
+		<br />
+		<button type="button" ng-show="status=='edit'" ng-click="openPopUpBox()" class="add-btn">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		</button>
+		<div class="form-content">
+			<div class="item-div" ng-repeat="item in items">
+				<label class="item-label">{{item.type}} </label>
+				<span class="item-text">{{item.text}}</span>
+				<a href="javascript:;" class="item-temove" ng-show="status=='edit'" ng-click="removeItem(item.id)">
+					<span class="glyphicon glyphicon-minus"></span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div id="pop_up_box" ng-show="hasPopUpBox">
+		<h1>选择添加类型</h1>
+		<div class="form-group">
+			<label class="radio-inline" for="text">
+				<input id="text" name="input-type" type="radio" value="text">文本
+			</label><br>
+			<label class="radio-inline" for="date">
+				<input id="date" name="input-type" type="radio" value="date" checked>日期
+			</label>
+		</div>
+		<button type="button" class="btn btn-sm btn-default" ng-click="closePopUpBox()"> 关闭</button>
+		<button type="button" class="btn btn-sm btn-warning" ng-click="addItem()"> 添加</button>
+	</div>
+	<script src="js/myController.js"></script>
+	</body>
+</html>
